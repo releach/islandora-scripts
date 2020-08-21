@@ -17,7 +17,7 @@ for FILE in $IPATH*.pdf; do
     PID=$(echo $FILE | cut -d'/' -f2 |cut -d'_' -f1,2 )
     BOOK=$OPATH$(basename $FILE .pdf)
     mkdir $BOOK
-    mv $IPATH$PID"_MODS.xml" $BOOK
+    mv $IPATH$PID"_MODS.xml" $BOOK"/MODS.xml"
     gs -dNOPAUSE -r300x300 -sDEVICE=tiff24nc -sOutputFile=$BOOK.tiff "./$FILE" -c quit
     convert "$BOOK.tiff" "%03d.tiff"
 
