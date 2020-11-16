@@ -17,9 +17,9 @@ for FILE in $IPATH*.pdf; do
     PID=$(echo $FILE | cut -d'/' -f2 |cut -d'_' -f1,2 )
     BOOK=$OPATH$(basename $FILE .pdf)
     mkdir $BOOK
-    mv $IPATH$PID"_MODS.xml" $BOOK"/MODS.xml"
+    cp $IPATH$PID"_MODS.xml" $BOOK"/MODS.xml"
     gs -dNOPAUSE -r300x300 -sDEVICE=tiff24nc -sOutputFile=$BOOK.tiff "./$FILE" -c quit
-    convert "$BOOK.tiff" "%03d.tiff"
+    convert "$BOOK.tiff" "%06d.tiff"
 
     cp $FILE $BOOK
     rm "$BOOK.tiff"
@@ -27,10 +27,10 @@ for FILE in $IPATH*.pdf; do
     c=1
     for f in *.tiff
       do
-        mkdir "$BOOK"/$c
+        mkdir "$BOOK"/$(printf %05d $c)
         filename="${f%%.*}"
         echo Processing $filename ...
-        mv "$f" "$BOOK"/$c/OBJ.tif
+        mv "$f" "$BOOK"/$(printf %05d $c)/OBJ.tif
         # mv "$f" "$OPATH"_tmp
         let c=c+1
       done
