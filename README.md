@@ -1,2 +1,2 @@
 # islandora-scripts
-Miscellaneous scripts for Islandora. 
+Miscellaneous scripts for Compass. 
