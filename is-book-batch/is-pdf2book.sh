@@ -17,13 +17,14 @@ for FILE in $IPATH*.pdf; do
     PID=$(echo $FILE | cut -d'/' -f2 |cut -d'_' -f1,2 )
     BOOK=$OPATH$(basename $FILE .pdf)
     mkdir $BOOK
-    cp $IPATH$PID"_MODS.xml" $BOOK"/MODS.xml"
-    gs -dNOPAUSE -r300x300 -sDEVICE=tiff24nc -sOutputFile=$BOOK.tiff "./$FILE" -c quit
+    gs -q -dNOPAUSE -r300x300 -sDEVICE=tiff24nc -sOutputFile=$BOOK.tiff "./$FILE" -c quit
     convert "$BOOK.tiff" "%06d.tiff"
 
-    cp $FILE $BOOK
-    rm "$BOOK.tiff"
+    cp $IPATH$PID"_MODS.xml" $BOOK"/MODS.xml"
+    cp $IPATH$PID"_OBJ.pdf" $BOOK"/PDF.pdf"
 
+    rm "$BOOK.tiff"
+    
     c=1
     for f in *.tiff
       do
